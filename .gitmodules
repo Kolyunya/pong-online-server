@@ -1,0 +1,3 @@
+[submodule "PongOnlineCommon"]
+    path = PongOnlineCommon
+    url = git@github.com:Kolyunya/pong-online-common.git
