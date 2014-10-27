@@ -10,6 +10,7 @@
 
 NetworkManager::NetworkManager ( void )
 {
+    this->initializeServerCredentials();
     this->initializeTcpServer();
     this->initializeUdpSocket();
 }
