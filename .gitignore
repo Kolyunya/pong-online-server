@@ -6,3 +6,4 @@
 !.gitignore
 !.gitmodules
 !PongOnlineServer.pro
+!PongOnlineServer.ini
