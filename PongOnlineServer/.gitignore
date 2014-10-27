@@ -3,3 +3,4 @@
 !Sources/*
 !.gitignore
 !PongOnlineServer.pro
+!PongOnlineServer.ini
