@@ -17,6 +17,7 @@ class NetworkManager :
         explicit NetworkManager ( void );
         void sendMessage ( Peer* peerPtr , const Message& message );
     private:
+        void initializeServerCredentials ( void );
         void initializeTcpServer ( void );
         void initializeUdpSocket ( void );
         int getPeerIndex ( Peer* peerPtr ) const;
@@ -25,6 +26,8 @@ class NetworkManager :
         Peer* getPeerByUdpAddress ( const QHostAddress& udpAddress , quint16 udpPort ) const;
         void sendTcpMessage ( Peer* peerPtr , const Message& message );
         void sendUdpMessage ( Peer* peerPtr , const Message& message );
+        QHostAddress serverAddress;
+        quint16 serverPort;
         QTcpServer tcpServer;
         QUdpSocket udpSocket;
         QVector<Peer*> peers;

@@ -1,6 +1,6 @@
 #include <QTcpSocket>
+#include <QSettings>
 #include <Peer/Peer.hpp>
-#include <ServerInfo/ServerInfo.hpp>
 #include <NetworkManager/NetworkManager.hpp>
 #include <Message/Message/Delimiter/Delimiter.hpp>
 #include <Message/Message/HandshakeRequest/HandshakeRequest.hpp>
@@ -36,6 +36,19 @@ void NetworkManager::sendMessage ( Peer* peerPtr , const Message& message )
 
 }
 
+void NetworkManager::initializeServerCredentials()
+{
+
+    // Initialize the settings object
+    QSettings settings("PongOnlineServer.ini",QSettings::IniFormat);
+
+    // Retrieve server address and port from the client settings
+    QString serverAddressString = settings.value("Server/ServerAddress").toString();
+    this->serverAddress = QHostAddress(serverAddressString);
+    this->serverPort = settings.value("Server/ServerPort").toUInt();
+
+}
+
 void NetworkManager::initializeTcpServer ( void )
 {
 
@@ -51,8 +64,8 @@ void NetworkManager::initializeTcpServer ( void )
     // Launch the TCP server
     this->tcpServer.listen
     (
-        ServerInfo::address,
-        ServerInfo::port
+        this->serverAddress,
+        this->serverPort
     );
 
 }
@@ -72,8 +85,8 @@ void NetworkManager::initializeUdpSocket ( void )
     // Bind the UDP socket to a local address
     this->udpSocket.bind
     (
-        ServerInfo::address,
-        ServerInfo::port
+        this->serverAddress,
+        this->serverPort
     );
 
 }
